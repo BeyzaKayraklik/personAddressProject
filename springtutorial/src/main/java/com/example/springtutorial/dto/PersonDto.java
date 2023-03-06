@@ -13,8 +13,6 @@ public class PersonDto {
 	private Long id;
 	private String name;
 	private String surname;
-//    private List<Address> addressList;
-
 	private AddressType addressType;
 	private List<String> addressList;
 

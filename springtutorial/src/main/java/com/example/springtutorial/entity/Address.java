@@ -27,7 +27,6 @@ public class Address implements Serializable {
     private Long id;
     private String address;
 
-    private Boolean status;
 
 //  (fetch = )
     //veritabanından her select edildiğinde ilgili kişisi de mutlaka gelsin

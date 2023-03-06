@@ -9,20 +9,20 @@ import com.example.springtutorial.dto.PersonDto;
 import com.example.springtutorial.request.PersonRequest;
 
 public interface PersonService {
-	PersonDto save(PersonRequest request);
+    PersonDto save(PersonRequest request);
 
-	PersonDto update(Long id, PersonDto personDto);
+    PersonDto update(Long id, PersonDto personDto);
 
-	void delete(Long id);
+    void delete(Long id);
 
-	PersonDto approve(Long id, PersonDto personDto);
+    PersonDto approve(Long id, PersonDto personDto);
 
-	List<PersonDto> getAll();
+    List<PersonDto> getAll();
 
-	List<PersonDto> getAllAddress();
+    List<PersonDto> getAllAddress();
 
-	List<PersonDto> getAllOther();
+    List<PersonDto> getAllOther();
 
-	List<PersonDto> getByAddressType(AddressType addressType);
+    List<PersonDto> getByAddressType(AddressType addressType);
 
 }

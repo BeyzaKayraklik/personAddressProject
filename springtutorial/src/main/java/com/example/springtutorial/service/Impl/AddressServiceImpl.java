@@ -5,14 +5,17 @@ import com.example.springtutorial.entity.Address;
 import com.example.springtutorial.repositories.AddressRepositories;
 import com.example.springtutorial.service.AddressService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class AddressServiceImpl implements AddressService {
-    private final AddressRepositories addressRepositories;
+
+    @Autowired
+    private AddressRepositories addressRepositories;
 
     @Override
     public AddressDto getAddressById(Long id) {

@@ -3,6 +3,7 @@ package com.example.springtutorial.controller;
 import java.util.List;
 
 import com.example.springtutorial.enums.AddressType;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,68 +22,63 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/person")
-@RequiredArgsConstructor
+
 //@Api(value = "person document")
 public class PersonController {
 
-	private final PersonService personService;
+    @Autowired
+    private PersonService personService;
 
-	// javax, bu classın constructoru yaratıldıktan spnra ,initialize edildikten
-	// sonra bu method çalışsın.
-	// javada mantıklı değil tam oluşmadan hata verebilir?
+    @PostMapping
+    public ResponseEntity<PersonDto> save(@RequestBody PersonRequest request) {
 
-//    @ApiOperation(value = "person save method")
-	// notes= "dikkatli kullan gibi" , annotation kalabalığı :
-	@PostMapping
-	public ResponseEntity<PersonDto> save(@RequestBody PersonRequest request) {
+        return ResponseEntity.ok(personService.save(request));
+    }
 
-		return ResponseEntity.ok(personService.save(request));
-	}
-
-	@PutMapping("/{id}")
+    @PutMapping("/{id}")
 //    @RequestMapping(value = "/products", method = RequestMethod.GET)
-	public ResponseEntity<PersonDto> update(@PathVariable Long id, @RequestBody PersonDto personDto) {
-		PersonDto updatedPersonDto = personService.update(id, personDto);
-		return ResponseEntity.ok(updatedPersonDto);
-	}
+    public ResponseEntity<PersonDto> update(@PathVariable Long id, @RequestBody PersonDto personDto) {
+        PersonDto updatedPersonDto = personService.update(id, personDto);
+        return ResponseEntity.ok(updatedPersonDto);
+    }
 
-	// TODO requestleri api bazlı ayır
+    // TODO requestleri api bazlı ayır
 
-	@PutMapping("/approve/{id}")
-	public ResponseEntity<PersonDto> approved(@PathVariable Long id, @RequestBody PersonDto personDto) {
-		PersonDto approvedPersonDto = personService.approve(id, personDto);
-		return ResponseEntity.ok(approvedPersonDto);
-	}
-
-
-	// TODO AdressType enumını dışarıdan almak gerek
-
-	@GetMapping
-	public ResponseEntity<List<PersonDto>> getAll() {
-		return ResponseEntity.ok(personService.getAll());
-
-	}
-
-	@GetMapping("/address")
-	public ResponseEntity<List<PersonDto>> getAllAddress() {
-		return ResponseEntity.ok(personService.getAllAddress());
-
-	}
-
-	@GetMapping("/other")
-	public ResponseEntity<List<PersonDto>> getAllOther() {
-		return ResponseEntity.ok(personService.getAllOther());
-	}
-
-	@GetMapping("/find/{type}")
-	public ResponseEntity<List<PersonDto>> getByAddressType(@PathVariable("type") AddressType addressType) {
-		return ResponseEntity.ok(personService.getByAddressType(addressType));
-	}
+    @PutMapping("/approve/{id}")
+    public ResponseEntity<PersonDto> approved(@PathVariable Long id, @RequestBody PersonDto personDto) {
+        PersonDto approvedPersonDto = personService.approve(id, personDto);
+        return ResponseEntity.ok(approvedPersonDto);
+    }
 
 
-	@DeleteMapping("/{id}")
-	public ResponseEntity<Void> delete(@PathVariable Long id) {
-		personService.delete(id);
-		return ResponseEntity.ok().build();
-	}
+    // TODO AdressType enumını dışarıdan almak gerek
+
+    @GetMapping
+    public ResponseEntity<List<PersonDto>> getAll() {
+        return ResponseEntity.ok(personService.getAll());
+
+    }
+
+    @GetMapping("/address")
+    public ResponseEntity<List<PersonDto>> getAllAddress() {
+        return ResponseEntity.ok(personService.getAllAddress());
+
+    }
+
+    @GetMapping("/other")
+    public ResponseEntity<List<PersonDto>> getAllOther() {
+        return ResponseEntity.ok(personService.getAllOther());
+    }
+
+    @GetMapping("/find/{type}")
+    public ResponseEntity<List<PersonDto>> getByAddressType(@PathVariable("type") AddressType addressType) {
+        return ResponseEntity.ok(personService.getByAddressType(addressType));
+    }
+
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        personService.delete(id);
+        return ResponseEntity.ok().build();
+    }
 }
